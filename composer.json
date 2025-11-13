@@ -1,0 +1,20 @@
+{
+  "name": "pragmatiqu/auth",
+  "description": "A minimal UI5 client app for authenticating your users.",
+  "autoload": {
+    "psr-4": {
+      "Pragmatiqu\\Auth\\": "src/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/pragmatiqu/lodata"
+    }
+  ],
+  "require": {
+    "php": ">=8.2",
+    "laravelui5/core": "^1.0"
+  },
+  "minimum-stability": "dev"
+}
