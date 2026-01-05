@@ -19,19 +19,19 @@
                 <Page class="bg-white">
                     <customHeader>
                         <Toolbar>
-                            <Title text="Forgot Password" level="H1" class="sapUiTinyMarginBegin"/>
+                            <Title text="Email sent" level="H1" class="sapUiTinyMarginBegin"/>
                         </Toolbar>
                     </customHeader>
                     <VBox
                         width="90%"
                         class="sapUiMediumMarginTop sapUiSmallMargin"
                     >
-                        <Label text="Email, User ID or Login Name" class="sapUiNoMargin"/>
+                        <Label text="Enter 6-digit code" class="sapUiNoMargin"/>
                         <Input
-                            id="emailInput"
+                            id="code"
                             width="100%"
-                            value="{login>/email}"
-                            placeholder="Enter E-Mail"/>
+                            value=""
+                            placeholder="Enter Code"/>
                     </VBox>
                     <footer>
                         <Toolbar>

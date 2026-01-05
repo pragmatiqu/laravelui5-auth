@@ -6,6 +6,7 @@ use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5ArtifactInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5LibraryInterface;
 use LaravelUi5\Core\Ui5\Ui5Module;
+use Pragmatiqu\Auth\Actions\Login\Action;
 use Pragmatiqu\Auth\Resources\Login\Resource;
 
 class AuthModule extends Ui5Module
@@ -53,7 +54,8 @@ class AuthModule extends Ui5Module
     public function getActions(): array
     {
         return [
-            new Actions\Login\Action($this)
+            new Actions\Login\Action($this),
+            new Actions\ForgotPassword\Action($this),
         ];
     }
 

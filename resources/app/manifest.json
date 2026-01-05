@@ -72,6 +72,11 @@
                     "pattern": "Forgot",
                     "name": "Forgot",
                     "target": "Forgot"
+                },
+                {
+                    "pattern": "EmailSent",
+                    "name": "EmailSent",
+                    "target": "EmailSent"
                 }
             ],
             "targets": {
@@ -82,6 +87,10 @@
                 "Forgot": {
                     "id": "forgot",
                     "name": "ForgotPassword"
+                },
+                "EmailSent": {
+                    "id": "email",
+                    "name": "EmailSent"
                 }
             }
         }
