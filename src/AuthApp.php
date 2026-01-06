@@ -3,7 +3,8 @@
 namespace Pragmatiqu\Auth;
 
 use Illuminate\Support\Facades\File;
-use LaravelUi5\Core\Ui5\Contracts\LaravelUi5ManifestInterface;
+use LaravelUi5\Core\Introspection\App\Ui5AppSource;
+use LaravelUi5\Core\Ui5\Capabilities\LaravelUi5ManifestInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5ModuleInterface;
 use LaravelUi5\Core\Enums\ArtifactType;
@@ -15,7 +16,12 @@ class AuthApp implements Ui5AppInterface
     {
     }
 
-    public function getModule(): ?Ui5ModuleInterface
+    public function getSource(): Ui5AppSource
+    {
+        return $this->module->getSourceStrategy()->createAppSource($this->getVendor());
+    }
+
+    public function getModule(): Ui5ModuleInterface
     {
         return $this->module;
     }

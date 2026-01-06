@@ -2,15 +2,19 @@
 
 namespace Pragmatiqu\Auth;
 
+use LaravelUi5\Core\Ui5\AbstractUi5Module;
 use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5ArtifactInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5LibraryInterface;
-use LaravelUi5\Core\Ui5\Ui5Module;
 use Pragmatiqu\Auth\Actions\Login\Action;
-use Pragmatiqu\Auth\Resources\Login\Resource;
 
-class AuthModule extends Ui5Module
+class AuthModule extends AbstractUi5Module
 {
+    public function getName(): string
+    {
+        return 'Auth';
+    }
+
     public function hasApp(): bool
     {
         return true;
@@ -55,11 +59,25 @@ class AuthModule extends Ui5Module
     {
         return [
             new Actions\Login\Action($this),
-            new Actions\ForgotPassword\Action($this),
         ];
     }
 
     public function getResources(): array
+    {
+        return [];
+    }
+
+    public function getDashboards(): array
+    {
+        return [];
+    }
+
+    public function getReports(): array
+    {
+        return [];
+    }
+
+    public function getDialogs(): array
     {
         return [];
     }

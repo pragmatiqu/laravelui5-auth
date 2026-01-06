@@ -2,9 +2,10 @@
 
 namespace Pragmatiqu\Auth;
 
-use LaravelUi5\Core\Ui5\AbstractLaravelUi5Manifest;
 
-class AuthManifest extends AbstractLaravelUi5Manifest
+use LaravelUi5\Core\Ui5\AbstractManifest;
+
+class AuthManifest extends AbstractManifest
 {
     protected function enhanceFragment(string $module): array
     {

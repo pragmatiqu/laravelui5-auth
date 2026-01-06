@@ -4,18 +4,18 @@ namespace Pragmatiqu\Auth\Actions\Login;
 
 use LaravelUi5\Core\Enums\ArtifactType;
 use LaravelUi5\Core\Enums\HttpMethod;
-use LaravelUi5\Core\Ui5\Contracts\ActionHandlerInterface;
+use LaravelUi5\Core\Ui5\AbstractUi5Action;
+use LaravelUi5\Core\Ui5\Capabilities\ActionHandlerInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5ModuleInterface;
-use LaravelUi5\Core\Ui5\Contracts\Ui5ActionInterface;
 
-class Action implements Ui5ActionInterface
+class Action extends AbstractUi5Action
 {
 
     public function __construct(protected Ui5ModuleInterface $module)
     {
     }
 
-    public function getModule(): ?Ui5ModuleInterface
+    public function getModule(): Ui5ModuleInterface
     {
         return $this->module;
     }
