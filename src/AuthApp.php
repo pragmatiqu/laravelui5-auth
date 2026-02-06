@@ -2,34 +2,14 @@
 
 namespace Pragmatiqu\Auth;
 
-use Illuminate\Support\Facades\File;
-use LaravelUi5\Core\Introspection\App\Ui5AppSource;
-use LaravelUi5\Core\Ui5\Capabilities\LaravelUi5ManifestInterface;
-use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
-use LaravelUi5\Core\Ui5\Contracts\Ui5ModuleInterface;
+use LaravelUi5\Core\Ui5\AbstractUi5App;
 use LaravelUi5\Core\Enums\ArtifactType;
+use LaravelUi5\Core\Traits\HasAssetsTrait;
+use LaravelUi5\Core\Ui5\Capabilities\LaravelUi5ManifestInterface;
 
-class AuthApp implements Ui5AppInterface
+class AuthApp extends AbstractUi5App
 {
-
-    public function __construct(protected Ui5ModuleInterface $module)
-    {
-    }
-
-    public function getSource(): Ui5AppSource
-    {
-        return $this->module->getSourceStrategy()->createAppSource($this->getVendor());
-    }
-
-    public function getModule(): Ui5ModuleInterface
-    {
-        return $this->module;
-    }
-
-    public function getSlug(): string
-    {
-        return $this->module->getSlug();
-    }
+    use HasAssetsTrait;
 
     public function getType(): ArtifactType
     {
@@ -48,24 +28,21 @@ class AuthApp implements Ui5AppInterface
 
     public function getTitle(): string
     {
-        return 'Auth';
+        return 'LaravelUi5/Auth';
     }
 
     public function getDescription(): string
     {
-        return 'Ui5App generated via ui5:sca';
+        return 'Offers authentication capabilities for Laravel/UI5 applications.';
     }
 
     public function getUi5BootstrapAttributes(): array
     {
         return [
-          'theme' => 'sap_horizon',
-          'oninit' => 'module:io/pragmatiqu/auth/Component',
-          'async' => 'true',
-          'compatversion' => 'edge',
-          'frameoptions' => 'trusted',
-          'xx-waitfortheme' => 'true',
-          'xx-supportedlanguages' => 'en',
+            'on-init' => 'module:sap/ui/core/ComponentSupport',
+            'compat-version' => 'edge',
+            'frame-options' => 'trusted',
+            'async' => 'true',
         ];
     }
 
@@ -79,35 +56,15 @@ class AuthApp implements Ui5AppInterface
     public function getAdditionalHeadScript(): ?string
     {
         return <<<JS
-sap.ui.getCore().attachInit(function () {
-    sap.ui.core.Component.create({
-      name: "io.pragmatiqu.auth",
-      manifest: true,
-      async: true
-    }).then(function (oComponent) {
-      new sap.ui.core.ComponentContainer({
-        component: oComponent,
-        height: "100%"
-      }).placeAt("content");
-    }).catch(function (err) {
-      console.error("Component load failed:", err);
-    });
-});
+
 JS;
     }
 
     public function getAdditionalInlineCss(): ?string
     {
         return <<<CSS
-.bg-white {
-    background-color: white
-}
-CSS;
-    }
 
-    public function getManifestPath(): string
-    {
-        return __DIR__ . '/../resources/app/manifest.json';
+CSS;
     }
 
     public function getLaravelUiManifest(): LaravelUi5ManifestInterface
@@ -115,14 +72,8 @@ CSS;
         return app(AuthManifest::class);
     }
 
-    public function getAssetPath(string $filename): ?string
-    {
-        $path = __DIR__ . '/../resources/app/' . ltrim($filename, '/');
-        return File::exists($path) ? $path : null;
-    }
-
     public function getVendor(): string
     {
-        return 'Vendor not supplied';
+        return 'Pragmatiqu IT GmbH';
     }
 }

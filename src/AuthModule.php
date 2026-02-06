@@ -2,42 +2,19 @@
 
 namespace Pragmatiqu\Auth;
 
-use LaravelUi5\Core\Ui5\AbstractUi5Module;
 use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
-use LaravelUi5\Core\Ui5\Contracts\Ui5ArtifactInterface;
-use LaravelUi5\Core\Ui5\Contracts\Ui5LibraryInterface;
-use Pragmatiqu\Auth\Actions\Login\Action;
+use LaravelUi5\Core\Ui5\AbstractUi5Module;
 
 class AuthModule extends AbstractUi5Module
 {
     public function getName(): string
     {
-        return 'Auth';
-    }
-
-    public function hasApp(): bool
-    {
-        return true;
+        return 'io.pragmatiqu.auth';
     }
 
     public function getApp(): ?Ui5AppInterface
     {
         return new AuthApp($this);
-    }
-
-    public function hasLibrary(): bool
-    {
-        return false;
-    }
-
-    public function getLibrary(): ?Ui5LibraryInterface
-    {
-        return null;
-    }
-
-    public function getArtifactRoot(): Ui5ArtifactInterface
-    {
-        return $this->getApp();
     }
 
     public function getCards(): array
@@ -57,9 +34,7 @@ class AuthModule extends AbstractUi5Module
 
     public function getActions(): array
     {
-        return [
-            new Actions\Login\Action($this),
-        ];
+        return [];
     }
 
     public function getResources(): array
