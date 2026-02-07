@@ -2,26 +2,24 @@
 
 namespace Pragmatiqu\Auth;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
-use Pragmatiqu\Auth\Contracts\LoginSuccessProviderInterface;
+use LaravelUi5\Core\Ui5\Ui5InfrastructureCollector;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    public function register(): void {
-        $this->mergeConfigFrom(__DIR__.'/../config.php', 'ui5-auth');
-
-        $this->app->singleton(
-            LoginSuccessProviderInterface::class,
-            config('ui5-auth.success_url_provider', LoginSuccessProvider::class)
-        );
+    public function register(): void
+    {
     }
 
+    /**
+     * @throws BindingResolutionException
+     */
     public function boot(): void
     {
+        $this->loadRoutesFrom(__DIR__ . '/../routes/auth.php');
 
-        if ($this->app->runningInConsole()) {
-            $this->publishes([__DIR__ . '/../config.php' => config_path('ui5-auth.php')], 'ui5-config');
-        }
-
+        $this->app->make(Ui5InfrastructureCollector::class)
+            ->add(AuthModule::class);
     }
 }

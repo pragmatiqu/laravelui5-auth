@@ -4,8 +4,9 @@ namespace Pragmatiqu\Auth;
 
 use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
 use LaravelUi5\Core\Ui5\AbstractUi5Module;
+use LaravelUi5\Core\Ui5\Contracts\Ui5Infrastructure;
 
-class AuthModule extends AbstractUi5Module
+class AuthModule extends AbstractUi5Module implements Ui5Infrastructure
 {
     public function getName(): string
     {
@@ -34,7 +35,9 @@ class AuthModule extends AbstractUi5Module
 
     public function getActions(): array
     {
-        return [];
+        return [
+            new Actions\Login\Action($this)
+        ];
     }
 
     public function getResources(): array

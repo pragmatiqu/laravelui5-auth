@@ -1,0 +1,2 @@
+sap.ui.define(["./BaseController","sap/ui/model/json/JSONModel","sap/m/MessageBox"],function(n,e,t){"use strict";function o(n){return n&&n.__esModule&&typeof n.default!=="undefined"?n.default:n}const s=o(n);const i=s.extend("io.pragmatiqu.auth.controller.Login",{onInit:function n(){const t=this.getOwnerComponent();const o=t.getManifestEntry("/laravel.ui5/meta");const s=new e({email:null,password:null,meta:o});this.setModel(s,"login")},onLogin:async function n(){t.error("So isses!")}});return i});
+//# sourceMappingURL=Login.controller.js.map

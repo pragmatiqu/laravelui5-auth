@@ -28,7 +28,7 @@ class AuthApp extends AbstractUi5App
 
     public function getTitle(): string
     {
-        return 'LaravelUi5/Auth';
+        return 'Pragmatiqu/Auth';
     }
 
     public function getDescription(): string
