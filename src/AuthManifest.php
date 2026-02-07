@@ -3,17 +3,29 @@
 namespace Pragmatiqu\Auth;
 
 
+use Illuminate\Support\Facades\Route;
 use LaravelUi5\Core\Ui5\AbstractManifest;
+use LaravelUi5\Core\Ui5\Capabilities\LaravelUi5ManifestKeys;
 
 class AuthManifest extends AbstractManifest
 {
-    protected function enhanceFragment(string $module): array
+    protected function contributeFragment(string $module): array
     {
+        $path = public_path('assets/ci/logo-full.svg');
+
+        if (file_exists($path)) {
+            $asset = asset('assets/ci/logo-full.svg');
+        } else {
+            $asset = asset('vendor/pragmatiqu/auth/logo-full.svg');
+        }
+
         return [
-            'meta' => [
-                'terms' => config('ui5-auth.terms'),
-                'privacy' => config('ui5-auth.privacy'),
-                'cookies' => config('ui5-auth.cookies'),
+            LaravelUi5ManifestKeys::ROUTES => [
+                'logo' => $asset,
+                'logout' => route('logout'),
+                'terms' => Route::has('terms') ? route('terms') : null,
+                'privacy' => Route::has('privacy') ? route('privacy') : null,
+                'cookies' => Route::has('cookies') ? route('cookies') : null,
             ]
         ];
     }
