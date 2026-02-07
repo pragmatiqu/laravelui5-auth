@@ -9,13 +9,13 @@ use Pragmatiqu\Auth\Requests\LoginRequest;
 
 class LoginHandler extends AbstractConfigurable implements ActionHandlerInterface
 {
-    public function handle(LoginRequest $request, LoginSuccessProviderInterface $provider): array
+    public function handle(LoginRequest $request): array
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        $path = $provider->redirectUrl($request);
+        $path = app(LoginSuccessProviderInterface::class)->redirectUrl($request);
 
         return [
             'message' => 'login_successful',

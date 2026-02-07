@@ -5,11 +5,13 @@ namespace Pragmatiqu\Auth;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use LaravelUi5\Core\Ui5\Ui5InfrastructureCollector;
+use Pragmatiqu\Auth\Contracts\LoginSuccessProviderInterface;
 
 class AuthServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        $this->app->singleton(LoginSuccessProviderInterface::class, LoginSuccessProvider::class);
     }
 
     /**

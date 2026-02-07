@@ -1,26 +1,33 @@
-sap.ui.define(["./BaseController", "sap/ui/model/json/JSONModel", "sap/m/MessageBox"], function (__BaseController, JSONModel, MessageBox) {
+sap.ui.define(["./BaseController", "sap/m/MessageBox", "com/laravelui5/core/LaravelUi5", "sap/ui/model/json/JSONModel", "sap/m/library"], function (__BaseController, MessageBox, __LaravelUi5, JSONModel, sap_m_library) {
   "use strict";
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule && typeof obj.default !== "undefined" ? obj.default : obj;
   }
   const BaseController = _interopRequireDefault(__BaseController);
+  const LaravelUi5 = _interopRequireDefault(__LaravelUi5);
+  const URLHelper = sap_m_library["URLHelper"];
   /**
    * @namespace io.pragmatiqu.auth.controller
    */
   const Login = BaseController.extend("io.pragmatiqu.auth.controller.Login", {
     onInit: function _onInit() {
-      const component = this.getOwnerComponent();
-      const meta = component.getManifestEntry("/laravel.ui5/meta");
-      const model = new JSONModel({
+      this.setModel(new JSONModel({
         email: null,
         password: null,
-        meta: meta
-      });
-      this.setModel(model, "login");
+        keepSignedIn: false
+      }), "login");
     },
     onLogin: async function _onLogin() {
-      MessageBox.error("So isses!");
+      const login = this.getModel("login");
+      try {
+        const response = await LaravelUi5.call("io.pragmatiqu.auth.actions.login", {}, login.getData());
+        URLHelper.redirect(response.redirect, false);
+      } catch (error) {
+        MessageBox.error(error.cause.message, {
+          title: error.statusText
+        });
+      }
     }
   });
   return Login;

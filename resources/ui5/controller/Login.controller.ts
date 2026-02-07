@@ -1,20 +1,25 @@
 import BaseController from "./BaseController";
-import UIComponent from "sap/ui/core/UIComponent";
-import JSONModel from "sap/ui/model/json/JSONModel";
 import MessageBox from "sap/m/MessageBox";
+import LaravelUi5 from "com/laravelui5/core/LaravelUi5";
+import JSONModel from "sap/ui/model/json/JSONModel";
+import {URLHelper} from "sap/m/library";
 
 /**
  * @namespace io.pragmatiqu.auth.controller
  */
 export default class Login extends BaseController {
 	public onInit(): void {
-		const component = <UIComponent> this.getOwnerComponent();
-		const meta = component.getManifestEntry("/laravel.ui5/meta");
-		const model = new JSONModel({email: null, password: null, meta: meta});
-		this.setModel(model, "login");
+		this.setModel(new JSONModel({email: null, password: null, keepSignedIn: false}), "login");
 	}
 
 	public async onLogin(): Promise<void> {
-		MessageBox.error("So isses!");
+		const login = <JSONModel> this.getModel("login");
+		try {
+			const response = await LaravelUi5.call("io.pragmatiqu.auth.actions.login", {}, login.getData())
+			URLHelper.redirect(response.redirect, false);
+		}
+		catch (error: any) {
+			MessageBox.error(error.cause.message, {title: error.statusText});
+		}
 	}
 }

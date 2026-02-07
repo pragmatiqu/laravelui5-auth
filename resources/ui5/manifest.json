@@ -91,9 +91,20 @@
 	},
 	"laravel.ui5": {
 		"meta": {
-			"terms": "/terms",
-			"privacy": "/privacy",
-			"cookies": "/cookies"
+			"generator": "LaravelUi5 Core"
+		},
+		"routes": {
+			"logo": "http://localhost:8000/assets/ci/logo-full.svg",
+			"logout": "http://localhost:8000/logout",
+			"terms": null,
+			"privacy": null,
+			"cookies": null
+		},
+		"actions": {
+			"io.pragmatiqu.auth.actions.login": {
+				"method": "POST",
+				"url": "/ui5/api/io/pragmatiqu/auth/actions/login@1.0.0/"
+			}
 		}
 	}
 }
