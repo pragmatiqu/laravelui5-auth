@@ -2,14 +2,35 @@
 
 namespace Pragmatiqu\Auth;
 
-use LaravelUi5\Core\Ui5\AbstractUi5App;
+use LaravelUi5\Core\Introspection\App\Ui5AppSource;
 use LaravelUi5\Core\Enums\ArtifactType;
 use LaravelUi5\Core\Traits\HasAssetsTrait;
 use LaravelUi5\Core\Ui5\Capabilities\LaravelUi5ManifestInterface;
+use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
+use LaravelUi5\Core\Ui5\Contracts\Ui5ModuleInterface;
 
-class AuthApp extends AbstractUi5App
+class AuthApp implements Ui5AppInterface
 {
     use HasAssetsTrait;
+
+    public function __construct(protected Ui5ModuleInterface $module)
+    {
+    }
+
+    public function getModule(): Ui5ModuleInterface
+    {
+        return $this->module;
+    }
+
+    public function getSource(): Ui5AppSource
+    {
+        return $this->module->getSourceStrategy()->createAppSource($this->getVendor());
+    }
+
+    public function getManifestPath(): string
+    {
+        return $this->module->getSourceStrategy()->getSourcePath() . '/manifest.json';
+    }
 
     public function getType(): ArtifactType
     {
