@@ -14,6 +14,11 @@ class AuthModule extends AbstractUi5Module implements Ui5Infrastructure
         return 'io.pragmatiqu.auth';
     }
 
+    public function requiresAuth(): bool
+    {
+        return false;
+    }
+
     public function getApp(): ?Ui5AppInterface
     {
         return new AuthApp($this);
