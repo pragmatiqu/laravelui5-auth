@@ -1,6 +1,6 @@
 <?php
 
-namespace Pragmatiqu\Auth\Actions\Login;
+namespace Pragmatiqu\Auth\Actions\Handler;
 
 use LaravelUi5\Core\Ui5\AbstractConfigurable;
 use LaravelUi5\Core\Ui5\Capabilities\ActionHandlerInterface;

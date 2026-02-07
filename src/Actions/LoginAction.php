@@ -1,13 +1,14 @@
 <?php
 
-namespace Pragmatiqu\Auth\Actions\Login;
+namespace Pragmatiqu\Auth\Actions;
 
 use LaravelUi5\Core\Enums\ArtifactType;
 use LaravelUi5\Core\Enums\HttpMethod;
 use LaravelUi5\Core\Ui5\AbstractUi5Action;
 use LaravelUi5\Core\Ui5\Capabilities\ActionHandlerInterface;
+use Pragmatiqu\Auth\Actions\Handler\LoginHandler;
 
-class Action extends AbstractUi5Action
+class LoginAction extends AbstractUi5Action
 {
 
     public function getNamespace(): string
