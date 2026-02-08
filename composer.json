@@ -14,7 +14,7 @@
   ],
   "require": {
     "php": ">=8.2",
-    "laravelui5/core": "^2.3"
+    "laravelui5/core": "^3.0"
   },
   "minimum-stability": "dev"
 }

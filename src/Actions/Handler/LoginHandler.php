@@ -18,7 +18,7 @@ class LoginHandler extends AbstractConfigurable implements ActionHandlerInterfac
         $path = $provider->redirectUrl($request);
 
         return [
-            'message' => 'login_successful',
+            'message' => 'login_success',
             'redirect' => $path,
         ];
     }
