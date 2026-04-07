@@ -14,12 +14,13 @@ export default class Login extends BaseController {
 
 	public async onLogin(): Promise<void> {
 		const login = <JSONModel> this.getModel("login");
+		const payload = {
+			email: login.getProperty("/email"),
+			password: login.getProperty("/password"),
+			keepSignedIn: login.getProperty("/keepSignedIn"),
+		}
 		try {
-			const response = await LaravelUi5.call("io.pragmatiqu.auth.actions.login", {}, {
-				email: login.getProperty("/email"),
-				password: login.getProperty("/password"),
-				keepSignedIn: login.getProperty("/keepSignedIn"),
-			})
+			const response = await LaravelUi5.call("io.pragmatiqu.auth.actions.login", {}, payload);
 			URLHelper.redirect(response.redirect, false);
 		}
 		catch (error: any) {

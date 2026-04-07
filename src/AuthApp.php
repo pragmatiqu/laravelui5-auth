@@ -23,7 +23,7 @@ class AuthApp extends AbstractUi5App
 
     public function getVersion(): string
     {
-        return '${version}';
+        return '1.0.0';
     }
 
     public function getTitle(): string
@@ -38,21 +38,19 @@ class AuthApp extends AbstractUi5App
 
     public function getUi5BootstrapAttributes(): array
     {
-        return array (
-  'resource-roots' => '{
-				"io.pragmatiqu.auth": "./"
-			}',
-  'on-init' => 'module:sap/ui/core/ComponentSupport',
-  'compat-version' => 'edge',
-  'frame-options' => 'trusted',
-  'async' => 'true',
-);
+        return [
+          'on-init' => 'module:sap/ui/core/ComponentSupport',
+          'compat-version' => 'edge',
+          'frame-options' => 'trusted',
+          'async' => 'true',
+        ];
     }
 
     public function getResourceNamespaces(): array
     {
-        return array (
-);
+        return [
+            'com.laravelui5.core',
+        ];
     }
 
     public function getAdditionalHeadScript(): ?string
