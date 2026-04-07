@@ -6,14 +6,14 @@ use LaravelUi5\Core\Enums\ArtifactType;
 use LaravelUi5\Core\Enums\HttpMethod;
 use LaravelUi5\Core\Ui5\AbstractUi5Action;
 use LaravelUi5\Core\Ui5\Capabilities\ActionHandlerInterface;
-use Pragmatiqu\Auth\Actions\Handler\LoginHandler;
+use Pragmatiqu\Auth\Actions\Handler\ForgotPasswordHandler;
 
-class LoginAction extends AbstractUi5Action
+class ForgotPasswordAction extends AbstractUi5Action
 {
 
     public function getNamespace(): string
     {
-        return 'io.pragmatiqu.auth.actions.login';
+        return 'io.pragmatiqu.auth.actions.forgot-password';
     }
 
     public function getType(): ArtifactType
@@ -28,12 +28,12 @@ class LoginAction extends AbstractUi5Action
 
     public function getTitle(): string
     {
-        return 'Login';
+        return 'ForgotPassword';
     }
 
     public function getDescription(): string
     {
-        return 'Action for Login';
+        return 'Action for ForgotPassword';
     }
 
     public function getMethod(): HttpMethod
@@ -43,6 +43,6 @@ class LoginAction extends AbstractUi5Action
 
     public function getHandler(): ActionHandlerInterface
     {
-        return new LoginHandler();
+        return new ForgotPasswordHandler();
     }
 }

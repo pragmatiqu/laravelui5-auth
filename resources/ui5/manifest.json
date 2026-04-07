@@ -78,12 +78,30 @@
 					"pattern": "",
 					"name": "login",
 					"target": "login"
+				},
+				{
+					"pattern": "forgot-password",
+					"name": "ForgotPassword",
+					"target": "ForgotPassword"
+				},
+				{
+					"pattern": "set-password",
+					"name": "SetPassword",
+					"target": "SetPassword"
 				}
 			],
 			"targets": {
 				"login": {
 					"id": "login",
 					"name": "Login"
+				},
+				"ForgotPassword": {
+					"id": "forgot",
+					"name": "ForgotPassword"
+				},
+				"SetPassword": {
+					"id": "set",
+					"name": "SetPassword"
 				}
 			}
 		},

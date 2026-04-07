@@ -2,35 +2,14 @@
 
 namespace Pragmatiqu\Auth;
 
-use LaravelUi5\Core\Introspection\App\Ui5AppSource;
+use LaravelUi5\Core\Ui5\AbstractUi5App;
+use LaravelUi5\Core\Ui5\Capabilities\LaravelUi5ManifestInterface;
 use LaravelUi5\Core\Enums\ArtifactType;
 use LaravelUi5\Core\Traits\HasAssetsTrait;
-use LaravelUi5\Core\Ui5\Capabilities\LaravelUi5ManifestInterface;
-use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
-use LaravelUi5\Core\Ui5\Contracts\Ui5ModuleInterface;
 
-class AuthApp implements Ui5AppInterface
+class AuthApp extends AbstractUi5App
 {
     use HasAssetsTrait;
-
-    public function __construct(protected Ui5ModuleInterface $module)
-    {
-    }
-
-    public function getModule(): Ui5ModuleInterface
-    {
-        return $this->module;
-    }
-
-    public function getSource(): Ui5AppSource
-    {
-        return $this->module->getSourceStrategy()->createAppSource($this->getVendor());
-    }
-
-    public function getManifestPath(): string
-    {
-        return $this->module->getSourceStrategy()->getSourcePath() . '/manifest.json';
-    }
 
     public function getType(): ArtifactType
     {
@@ -44,34 +23,36 @@ class AuthApp implements Ui5AppInterface
 
     public function getVersion(): string
     {
-        return '1.0.0';
+        return '${version}';
     }
 
     public function getTitle(): string
     {
-        return 'Pragmatiqu/Auth';
+        return 'io.pragmatiqu.auth';
     }
 
     public function getDescription(): string
     {
-        return 'Offers authentication capabilities for Laravel/UI5 applications.';
+        return 'UI5 Application io.pragmatiqu.auth';
     }
 
     public function getUi5BootstrapAttributes(): array
     {
-        return [
-            'on-init' => 'module:sap/ui/core/ComponentSupport',
-            'compat-version' => 'edge',
-            'frame-options' => 'trusted',
-            'async' => 'true',
-        ];
+        return array (
+  'resource-roots' => '{
+				"io.pragmatiqu.auth": "./"
+			}',
+  'on-init' => 'module:sap/ui/core/ComponentSupport',
+  'compat-version' => 'edge',
+  'frame-options' => 'trusted',
+  'async' => 'true',
+);
     }
 
     public function getResourceNamespaces(): array
     {
-        return [
-            'com.laravelui5.core'
-        ];
+        return array (
+);
     }
 
     public function getAdditionalHeadScript(): ?string
