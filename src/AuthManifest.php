@@ -1,6 +1,6 @@
 <?php
 
-namespace Pragmatiqu\Auth;
+namespace LaravelUi5\Auth;
 
 
 use Illuminate\Support\Facades\Route;
@@ -16,7 +16,7 @@ class AuthManifest extends AbstractManifest
         if (file_exists($path)) {
             $asset = asset('assets/ci/logo-full.svg');
         } else {
-            $asset = asset('vendor/pragmatiqu/auth/logo-full.svg');
+            $asset = asset('vendor/laravelui5/auth/logo-full.svg');
         }
 
         return [

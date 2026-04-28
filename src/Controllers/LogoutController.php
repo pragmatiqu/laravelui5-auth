@@ -1,6 +1,6 @@
 <?php
 
-namespace Pragmatiqu\Auth\Controllers;
+namespace LaravelUi5\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;

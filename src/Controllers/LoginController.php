@@ -1,6 +1,6 @@
 <?php
 
-namespace Pragmatiqu\Auth\Controllers;
+namespace LaravelUi5\Auth\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use LaravelUi5\Core\Ui5\Contracts\Ui5RegistryInterface;

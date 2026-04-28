@@ -1,20 +1,33 @@
 {
-  "name": "pragmatiqu/auth",
-  "description": "A minimal UI5 client app for authenticating your users.",
-  "autoload": {
-    "psr-4": {
-      "Pragmatiqu\\Auth\\": "src/"
-    }
-  },
-  "repositories": [
+  "name": "laravelui5/auth",
+  "description": "Password + session authentication for LaravelUi5 apps, with a UI5 frontend.",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["laravel", "laravelui5", "ui5", "authentication", "auth"],
+  "authors": [
     {
-      "type": "vcs",
-      "url": "https://github.com/pragmatiqu/lodata"
+      "name": "Michael Gerzabek",
+      "email": "michael.gerzabek@gmail.com",
+      "homepage": "https://pragmatiqu.io",
+      "role": "Maintainer"
     }
   ],
   "require": {
     "php": ">=8.2",
-    "laravelui5/core": "^3.0"
+    "laravelui5/core": "^0.9"
   },
-  "minimum-stability": "dev"
+  "autoload": {
+    "psr-4": {
+      "LaravelUi5\\Auth\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "LaravelUi5\\Auth\\AuthServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

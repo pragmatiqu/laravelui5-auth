@@ -1,6 +1,6 @@
 <?php
 
-namespace Pragmatiqu\Auth;
+namespace LaravelUi5\Auth;
 
 use LaravelUi5\Core\Ui5\AbstractUi5App;
 use LaravelUi5\Core\Ui5\Capabilities\LaravelUi5ManifestInterface;

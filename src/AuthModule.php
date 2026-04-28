@@ -1,12 +1,12 @@
 <?php
 
-namespace Pragmatiqu\Auth;
+namespace LaravelUi5\Auth;
 
 use LaravelUi5\Core\Ui5\AbstractUi5Module;
 use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5Infrastructure;
-use Pragmatiqu\Auth\Actions\ForgotPasswordAction;
-use Pragmatiqu\Auth\Actions\LoginAction;
+use LaravelUi5\Auth\Actions\ForgotPasswordAction;
+use LaravelUi5\Auth\Actions\LoginAction;
 
 class AuthModule extends AbstractUi5Module implements Ui5Infrastructure
 {

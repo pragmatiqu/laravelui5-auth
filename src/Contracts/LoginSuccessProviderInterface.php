@@ -1,6 +1,6 @@
 <?php
 
-namespace Pragmatiqu\Auth\Contracts;
+namespace LaravelUi5\Auth\Contracts;
 
 use Illuminate\Http\Request;
 

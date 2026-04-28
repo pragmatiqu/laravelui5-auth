@@ -1,11 +1,11 @@
 <?php
 
-namespace Pragmatiqu\Auth\Actions\Handler;
+namespace LaravelUi5\Auth\Actions\Handler;
 
 use LaravelUi5\Core\Ui5\AbstractConfigurable;
 use LaravelUi5\Core\Ui5\Capabilities\ActionHandlerInterface;
-use Pragmatiqu\Auth\Contracts\LoginSuccessProviderInterface;
-use Pragmatiqu\Auth\Requests\LoginRequest;
+use LaravelUi5\Auth\Contracts\LoginSuccessProviderInterface;
+use LaravelUi5\Auth\Requests\LoginRequest;
 use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordHandler extends AbstractConfigurable implements ActionHandlerInterface

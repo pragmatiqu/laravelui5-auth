@@ -1,7 +1,7 @@
 <?php
 
-use Pragmatiqu\Auth\Controllers\LoginController;
-use Pragmatiqu\Auth\Controllers\LogoutController;
+use LaravelUi5\Auth\Controllers\LoginController;
+use LaravelUi5\Auth\Controllers\LogoutController;
 
 Route::middleware('web')->group(function () {
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Pragmatiqu\Auth;
+namespace LaravelUi5\Auth;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use LaravelUi5\Core\Ui5\Ui5InfrastructureCollector;
-use Pragmatiqu\Auth\Contracts\LoginSuccessProviderInterface;
+use LaravelUi5\Auth\Contracts\LoginSuccessProviderInterface;
 
 class AuthServiceProvider extends ServiceProvider
 {

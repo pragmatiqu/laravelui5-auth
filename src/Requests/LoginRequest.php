@@ -1,6 +1,6 @@
 <?php
 
-namespace Pragmatiqu\Auth\Requests;
+namespace LaravelUi5\Auth\Requests;
 
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pragmatiqu\Auth\Actions\Handler;
+namespace LaravelUi5\Auth\Actions\Handler;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

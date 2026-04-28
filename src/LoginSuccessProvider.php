@@ -1,9 +1,9 @@
 <?php
 
-namespace Pragmatiqu\Auth;
+namespace LaravelUi5\Auth;
 
 use Illuminate\Http\Request;
-use Pragmatiqu\Auth\Contracts\LoginSuccessProviderInterface;
+use LaravelUi5\Auth\Contracts\LoginSuccessProviderInterface;
 
 class LoginSuccessProvider implements LoginSuccessProviderInterface
 {

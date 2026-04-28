@@ -1,12 +1,12 @@
 <?php
 
-namespace Pragmatiqu\Auth\Actions;
+namespace LaravelUi5\Auth\Actions;
 
 use LaravelUi5\Core\Enums\ArtifactType;
 use LaravelUi5\Core\Enums\HttpMethod;
 use LaravelUi5\Core\Ui5\AbstractUi5Action;
 use LaravelUi5\Core\Ui5\Capabilities\ActionHandlerInterface;
-use Pragmatiqu\Auth\Actions\Handler\ForgotPasswordHandler;
+use LaravelUi5\Auth\Actions\Handler\ForgotPasswordHandler;
 
 class ForgotPasswordAction extends AbstractUi5Action
 {
