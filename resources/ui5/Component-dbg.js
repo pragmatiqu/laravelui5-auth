@@ -1,4 +1,4 @@
-sap.ui.define(["sap/ui/core/UIComponent", "./model/models", "sap/ui/Device", "com/laravelui5/core/LaravelUi5"], function (UIComponent, __models, Device, __LaravelUi5) {
+sap.ui.define(["sap/ui/core/UIComponent", "./model/models", "sap/ui/Device", "com/laravelui5/core/LaravelUi5", "sap/ui/model/json/JSONModel"], function (UIComponent, __models, Device, __LaravelUi5, JSONModel) {
   "use strict";
 
   function _interopRequireDefault(obj) {
@@ -20,6 +20,13 @@ sap.ui.define(["sap/ui/core/UIComponent", "./model/models", "sap/ui/Device", "co
 
       // create the device model
       this.setModel(models.createDeviceModel(), "device");
+      this.setModel(new JSONModel({
+        email: null,
+        password: null,
+        passwordConfirmation: null,
+        token: null,
+        keepSignedIn: false
+      }), "login");
       LaravelUi5.init(this).then(() => {
         this.getRouter().initialize();
       }).catch(error => {

@@ -85,7 +85,7 @@
 					"target": "ForgotPassword"
 				},
 				{
-					"pattern": "set-password",
+					"pattern": "set-password/{token}/{email}",
 					"name": "SetPassword",
 					"target": "SetPassword"
 				}
