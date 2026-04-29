@@ -14,7 +14,7 @@ class ResetPasswordController
 
         $base = $registry->resolve('io.pragmatiqu.auth');
 
-        $url = $base . '/index.html#/set-password/' . urlencode($token) . '?email=' . urlencode($email);
+        $url = $base . '/index.html#/set-password/' . urlencode($token) . '/' . urlencode($email);
 
         return redirect($url);
     }
