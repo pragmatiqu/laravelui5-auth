@@ -4,23 +4,16 @@ namespace LaravelUi5\Auth\Actions\Handler;
 
 use LaravelUi5\Core\Ui5\AbstractConfigurable;
 use LaravelUi5\Core\Ui5\Capabilities\ActionHandlerInterface;
-use LaravelUi5\Auth\Contracts\LoginSuccessProviderInterface;
-use LaravelUi5\Auth\Requests\LoginRequest;
-use Illuminate\Support\Facades\Password;
+use LaravelUi5\Auth\Requests\ForgotPasswordRequest;
 
 class ForgotPasswordHandler extends AbstractConfigurable implements ActionHandlerInterface
 {
-    public function handle(LoginRequest $request, LoginSuccessProviderInterface $provider): array
+    public function handle(ForgotPasswordRequest $request): array
     {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        $path = $provider->redirectUrl($request);
+        $request->sendResetLink();
 
         return [
-            'message' => 'login_success',
-            'redirect' => $path,
+            'message' => 'reset_link_sent',
         ];
     }
 }

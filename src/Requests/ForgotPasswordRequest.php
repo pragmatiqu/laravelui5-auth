@@ -1,0 +1,58 @@
+<?php
+
+namespace LaravelUi5\Auth\Requests;
+
+use Illuminate\Auth\Events\Lockout;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+
+class ForgotPasswordRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'email' => 'required|string|email',
+        ];
+    }
+
+    public function sendResetLink(): void
+    {
+        $this->ensureIsNotRateLimited();
+
+        Password::sendResetLink($this->only('email'));
+
+        RateLimiter::hit($this->throttleKey());
+    }
+
+    public function ensureIsNotRateLimited(): void
+    {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+            return;
+        }
+
+        event(new Lockout($this));
+
+        $seconds = RateLimiter::availableIn($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'email' => sprintf(
+                'auth_throttle|%s|%s',
+                $seconds,
+                ceil($seconds / 60)
+            ),
+        ]);
+    }
+
+    public function throttleKey(): string
+    {
+        return Str::transliterate(Str::lower($this->string('email')) . '|forgot|' . $this->ip());
+    }
+}
