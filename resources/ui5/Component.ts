@@ -2,6 +2,7 @@ import UIComponent from "sap/ui/core/UIComponent";
 import models from "./model/models";
 import Device from "sap/ui/Device";
 import LaravelUi5 from "com/laravelui5/core/LaravelUi5";
+import JSONModel from "sap/ui/model/json/JSONModel";
 
 /**
  * @namespace io.pragmatiqu.auth
@@ -20,7 +21,13 @@ export default class Component extends UIComponent {
 
 		// create the device model
 		this.setModel(models.createDeviceModel(), "device");
-
+		this.setModel(new JSONModel({
+			email: null,
+			password: null,
+			passwordConfirmation: null,
+			token: null,
+			keepSignedIn: false,
+		}), "login");
 		LaravelUi5.init(this).then(() => {
 			this.getRouter().initialize();
 		}).catch((error: unknown) => {

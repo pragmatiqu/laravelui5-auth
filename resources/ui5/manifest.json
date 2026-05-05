@@ -14,7 +14,7 @@
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
 		"applicationVersion": {
-			"version": "1.0.0"
+			"version": "5.0.1"
 		},
 		"sourceTemplate": {
 			"id": "generator-ui5-ts-app",

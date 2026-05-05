@@ -1,90 +1,60 @@
 <mvc:View
-    controllerName="io.pragmatiqu.auth.controller.Login"
-    displayBlock="true"
-    xmlns="sap.m"
-    xmlns:core="sap.ui.core"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:f="sap.f"
+	controllerName="io.pragmatiqu.auth.controller.Login"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:card="sap.f.cards"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"
 >
-    <FlexBox
-        height="100%"
-        direction="Column"
-        alignItems="Center"
-        justifyContent="Center"
-		>
-        <f:Card width="25em"
-                height="60vh">
-            <f:layoutData>
-                <f:GridContainerItemLayoutData columns="4"/>
-            </f:layoutData>
-            <f:content>
-                <Page class="bg-white">
-                    <customHeader>
-                        <Toolbar>
-                            <Title text="Sign In" level="H1" class="sapUiTinyMarginBegin"/>
-                        </Toolbar>
-                    </customHeader>
-                    <VBox
-                        width="90%"
-                        class="sapUiMediumMarginTop sapUiSmallMargin"
-                    >
-                        <Label text="Email, User ID or Login Name" class="sapUiNoMargin"/>
-                        <Input
-                            id="emailInput"
-                            width="100%"
-                            value="{login>/email}"
-                            placeholder="Enter E-Mail"/>
+	<FlexBox height="100%" direction="Column" alignItems="Center" justifyContent="Center">
+		<f:Card width="25em" height="60vh">
+			<f:layoutData>
+					<f:GridContainerItemLayoutData columns="4"/>
+			</f:layoutData>
+			<f:header>
+				<card:Header title="Sign In" />
+			</f:header>
+			<f:content>
+				<FlexBox direction="Column" justifyContent="SpaceBetween" width="90%" height="100%">
+					<VBox width="100%" class="sapUiMediumMarginTop sapUiSmallMargin">
+							<Label design="Bold" text="Login" class="sapUiNoMargin"/>
+							<Input
+									id="emailInput"
+									width="100%"
+									value="{login>/email}"
+									valueLiveUpdate="true"
+									placeholder="Enter E-Mail"/>
 
-                        <Label text="Password" class="sapUiNoMargin"/>
-                        <Input
-                            class="sapUiNoPadding"
-                            id="passwordInput"
-                            width="100%"
-                            value="{login>/password}"
-                            type="Password"
-                            placeholder="Enter password"/>
+							<Label design="Bold" text="Password" class="sapUiSmallMarginTop"/>
+							<Input
+									class="sapUiNoPadding"
+									id="passwordInput"
+									width="100%"
+									value="{login>/password}"
+									valueLiveUpdate="true"
+									type="Password"
+									placeholder="Enter password"/>
 
-                        <HBox justifyContent="SpaceBetween" width="100%">
-                            <CheckBox
-                                text="Keep me signed in"
-                                selected="false"
-                                name="keepSignedIn"
-                                class="sapUiNoContentPadding"/>
-                            <Link
-                                text="Forgot Password"
-                                href="#/Forgot"
-                                press="onNavigate"
-                                class="sapUiSmallMarginTop">
-                                <customData>
-                                    <core:CustomData key="pattern" value="Forgot" />
-                                </customData>
-                            </Link>
-                        </HBox>
-                    </VBox>
+							<HBox justifyContent="End" width="100%" class="sapUiTinyMarginTop">
+								<Link text="Forgot Password" href="#/forgot-password" />
+							</HBox>
 
-                    <footer>
-                        <Toolbar>
-                            <ToolbarSpacer/>
-                            <Button text="Continue" type="Emphasized" width="auto" press=".onLogin" />
-                        </Toolbar>
-                    </footer>
-                </Page>
-            </f:content>
-        </f:Card>
+							<CheckBox
+								text="Keep me signed in"
+								selected="false"
+								name="keepSignedIn"
+								class="sapUiNoContentPadding sapUiSmallMarginTop"
+							/>
+					</VBox>
 
-        <HBox
-            justifyContent="Center"
-            alignItems="Center"
-            width="100%"
-            class="sapUiSmallMarginTop sapUiSmallMarginBottom"
-        >
-            <Link text="Privacy Policy" href="{routes>/privacy}" target="_blank" />
-            <Text text=" | " class="sapUiTinyMarginBegin sapUiTinyMarginEnd" />
-            <Link text="Legal Disclosure" href="{routes>/terms}" target="_blank" />
-            <Text text=" | " class="sapUiTinyMarginBegin sapUiTinyMarginEnd" />
-            <Link text="Cookie Statement" href="{routes>/cookies}" target="_blank" />
-        </HBox>
-    </FlexBox>
+					<VBox alignItems="End" width="100%" class="sapUiMediumMarginTop sapUiSmallMargin">
+							<Button text="Continue" type="Emphasized" width="auto" press=".onLogin" />
+					</VBox>
+				</FlexBox>
+			</f:content>
+		</f:Card>
 
-
+		<core:Fragment fragmentName="io.pragmatiqu.auth.view.LegalFooter" type="XML"/>
+	</FlexBox>
 </mvc:View>
