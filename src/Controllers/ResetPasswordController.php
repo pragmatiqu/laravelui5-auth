@@ -2,31 +2,40 @@
 
 namespace LaravelUi5\Auth\Controllers;
 
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use LaravelUi5\Core\Ui5\Contracts\Ui5RegistryInterface;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use LaravelUi5\Auth\Requests\ResetPasswordRequest;
 
-class ResetPasswordController
+final class ResetPasswordController
 {
-    public function __invoke(Request $request, Ui5RegistryInterface $registry, string $token): RedirectResponse
+    public function __invoke(ResetPasswordRequest $request): JsonResponse
     {
-        $email = (string) $request->query('email', '');
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (CanResetPassword $user, string $password): void {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                    'remember_token' => Str::random(60),
+                ])->save();
 
-        // Pre-validate the token before sending the user into the UI5 form.
-        // The POST-side handler validates again (source of truth), but catching
-        // it here avoids landing the user on a form that will fail on submit.
-        $broker = Password::broker();
-        $user = $broker->getUser(['email' => $email]);
+                event(new PasswordReset($user));
+            }
+        );
 
-        if (!$user || !$broker->tokenExists($user, $token)) {
-            return redirect()->route('login');
+        if ($status !== Password::PASSWORD_RESET) {
+            throw ValidationException::withMessages([
+                'email' => 'reset_failed',
+            ]);
         }
 
-        $base = $registry->resolve('io.pragmatiqu.auth');
-
-        $url = $base . '/index.html#/set-password/' . urlencode($token) . '/' . urlencode($email);
-
-        return redirect($url);
+        return response()->json([
+            'message' => 'reset_success',
+            'redirect' => route('login'),
+        ]);
     }
 }

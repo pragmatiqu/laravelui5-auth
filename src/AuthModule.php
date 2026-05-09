@@ -5,9 +5,6 @@ namespace LaravelUi5\Auth;
 use LaravelUi5\Core\Ui5\AbstractUi5Module;
 use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5Infrastructure;
-use LaravelUi5\Auth\Actions\ForgotPasswordAction;
-use LaravelUi5\Auth\Actions\LoginAction;
-use LaravelUi5\Auth\Actions\ResetPasswordAction;
 
 class AuthModule extends AbstractUi5Module implements Ui5Infrastructure
 {
@@ -43,11 +40,7 @@ class AuthModule extends AbstractUi5Module implements Ui5Infrastructure
 
     public function getActions(): array
     {
-        return [
-            new LoginAction($this),
-            new ForgotPasswordAction($this),
-            new ResetPasswordAction($this),
-        ];
+        return [];
     }
 
     public function getResources(): array

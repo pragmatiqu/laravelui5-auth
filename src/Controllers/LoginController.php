@@ -2,21 +2,23 @@
 
 namespace LaravelUi5\Auth\Controllers;
 
-use Illuminate\Http\RedirectResponse;
-use LaravelUi5\Core\Ui5\Contracts\Ui5RegistryInterface;
+use Illuminate\Http\JsonResponse;
+use LaravelUi5\Auth\Contracts\LoginSuccessProviderInterface;
+use LaravelUi5\Auth\Requests\LoginRequest;
 
-class LoginController
+final class LoginController
 {
-    /**
-     * Redirects to Auth app.
-     *
-     * @param Ui5RegistryInterface $registry
-     * @return RedirectResponse
-     */
-    public function __invoke(Ui5RegistryInterface $registry): RedirectResponse
-    {
-        $url = $registry->resolve('io.pragmatiqu.auth') . '/index.html';
+    public function __invoke(
+        LoginRequest                  $request,
+        LoginSuccessProviderInterface $provider,
+    ): JsonResponse {
+        $request->authenticate();
 
-        return redirect($url);
+        $request->session()->regenerate();
+
+        return response()->json([
+            'message'  => 'login_success',
+            'redirect' => $provider->redirectUrl($request),
+        ]);
     }
 }
