@@ -34,7 +34,7 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "com/laravelui5/core/Lara
       };
       try {
         const response = await LaravelUi5.post("/auth/login", payload);
-        await this.getOwnerComponent().dispatchIntent(response.next);
+        this.getOwnerComponent().dispatchIntent(response.next);
       } catch (error) {
         const err = error;
         MessageBox.error(err.cause.message, {

@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";const e={org_setup:{view:"OrgSetup",endpoint:"/auth/intents/org-setup"},redirect:{terminal:true}};var t={__esModule:true};t.INTENT_CATALOG=e;return t});
+//# sourceMappingURL=IntentCatalog.js.map

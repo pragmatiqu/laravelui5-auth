@@ -48,11 +48,11 @@ export default class Login extends BaseController {
 			keepSignedIn: login.getProperty("/keepSignedIn"),
 		};
 		try {
-			const response = await LaravelUi5.post(
+			const response = await LaravelUi5.post<LoginResponse>(
 				"/auth/login",
 				payload
-			) as LoginResponse;
-			await this.getOwnerComponent().dispatchIntent(response.next);
+			);
+			this.getOwnerComponent().dispatchIntent(response.next);
 		}
 		catch (error) {
 			const err = error as ActionError;
