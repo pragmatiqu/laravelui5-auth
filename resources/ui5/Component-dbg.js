@@ -1,4 +1,4 @@
-sap.ui.define(["sap/ui/core/UIComponent", "./model/models", "sap/ui/Device", "com/laravelui5/core/LaravelUi5", "sap/ui/model/json/JSONModel"], function (UIComponent, __models, Device, __LaravelUi5, JSONModel) {
+sap.ui.define(["sap/ui/core/UIComponent", "./model/models", "sap/ui/Device", "com/laravelui5/core/LaravelUi5", "sap/ui/model/json/JSONModel", "sap/m/library", "./model/IntentCatalog"], function (UIComponent, __models, Device, __LaravelUi5, JSONModel, sap_m_library, ___model_IntentCatalog) {
   "use strict";
 
   function _interopRequireDefault(obj) {
@@ -6,6 +6,8 @@ sap.ui.define(["sap/ui/core/UIComponent", "./model/models", "sap/ui/Device", "co
   }
   const models = _interopRequireDefault(__models);
   const LaravelUi5 = _interopRequireDefault(__LaravelUi5);
+  const URLHelper = sap_m_library["URLHelper"];
+  const INTENT_CATALOG = ___model_IntentCatalog["INTENT_CATALOG"];
   /**
    * @namespace io.pragmatiqu.auth
    */
@@ -27,11 +29,34 @@ sap.ui.define(["sap/ui/core/UIComponent", "./model/models", "sap/ui/Device", "co
         token: null,
         keepSignedIn: false
       }), "login");
+      this.setModel(new JSONModel({}), "intent");
       LaravelUi5.init(this).then(() => {
         this.getRouter().initialize();
       }).catch(error => {
         console.error(error);
       });
+    },
+    /**
+     * Dispatches a serialized intent returned by the backend dispenser.
+     *
+     * Terminal intents (redirect) navigate the browser. Interactive intents
+     * publish their payload to the "intent" model and route to their view.
+     * Unknown kinds throw — the catalog is closed; an unknown kind here
+     * means the backend version is ahead of the frontend version, which
+     * is a versioning bug to land at dev/CI time, not in production.
+     */
+    dispatchIntent: function _dispatchIntent(intent) {
+      const binding = INTENT_CATALOG[intent.kind];
+      if (!binding) {
+        console.error(`[ui5-auth] unknown intent kind: ${intent.kind}`);
+        throw new Error(`unknown intent kind: ${intent.kind}`);
+      }
+      if (binding.terminal && intent.kind === "redirect") {
+        URLHelper.redirect(intent.payload.target, false);
+        return;
+      }
+      this.getModel("intent").setData(intent);
+      this.getRouter().navTo(binding.view);
     },
     /**
      * This method can be called to determine whether the sapUiSizeCompact or sapUiSizeCozy

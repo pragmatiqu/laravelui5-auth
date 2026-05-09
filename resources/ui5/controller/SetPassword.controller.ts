@@ -65,11 +65,10 @@ export default class SetPassword extends BaseController {
 
 		state.setProperty("/submitting", true);
 		try {
-			await LaravelUi5.call<Record<string, unknown>, ResetPasswordResponse>(
-				"io.pragmatiqu.auth.actions.reset-password",
-				{},
+			await LaravelUi5.post(
+				"/auth/reset-password",
 				payload
-			);
+			) as ResetPasswordResponse;
 			// Drop sensitive fields the moment the reset succeeds. The shared
 			// `login` model is consumed by the Login view too — leaving the
 			// new password in there would pre-fill the sign-in form with it.

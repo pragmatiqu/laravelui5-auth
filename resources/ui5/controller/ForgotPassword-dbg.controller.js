@@ -33,7 +33,7 @@ sap.ui.define(["./BaseController", "com/laravelui5/core/LaravelUi5", "sap/ui/mod
       const bundle = await this.getResourceBundle();
       state.setProperty("/submitting", true);
       try {
-        await LaravelUi5.call("io.pragmatiqu.auth.actions.forgot-password", {}, {
+        await LaravelUi5.post("/auth/forgot-password", {
           email: login.getProperty("/email")
         });
         this.setStrip(state, "Success", bundle.getText("forgotPassword.success") ?? "");

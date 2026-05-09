@@ -1,6 +1,7 @@
 <?php
 
 use LaravelUi5\Auth\Controllers\ForgotPasswordController;
+use LaravelUi5\Auth\Controllers\Intents\OrgSetupIntentController;
 use LaravelUi5\Auth\Controllers\LoginController;
 use LaravelUi5\Auth\Controllers\LoginRedirectController;
 use LaravelUi5\Auth\Controllers\LogoutController;
@@ -29,6 +30,9 @@ Route::middleware('web')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::post('/logout', LogoutController::class)
             ->name('logout');
+
+        Route::post('/auth/intents/org-setup', OrgSetupIntentController::class)
+            ->name('auth.intents.org_setup');
     });
 
 });

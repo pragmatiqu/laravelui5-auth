@@ -50,7 +50,7 @@ sap.ui.define(["./BaseController", "com/laravelui5/core/LaravelUi5", "sap/ui/mod
       };
       state.setProperty("/submitting", true);
       try {
-        await LaravelUi5.call("io.pragmatiqu.auth.actions.reset-password", {}, payload);
+        await LaravelUi5.post("/auth/reset-password", payload);
         // Drop sensitive fields the moment the reset succeeds. The shared
         // `login` model is consumed by the Login view too — leaving the
         // new password in there would pre-fill the sign-in form with it.

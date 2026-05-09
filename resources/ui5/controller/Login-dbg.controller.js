@@ -1,4 +1,4 @@
-sap.ui.define(["./BaseController", "sap/m/MessageBox", "com/laravelui5/core/LaravelUi5", "sap/m/library"], function (__BaseController, MessageBox, __LaravelUi5, sap_m_library) {
+sap.ui.define(["./BaseController", "sap/m/MessageBox", "com/laravelui5/core/LaravelUi5"], function (__BaseController, MessageBox, __LaravelUi5) {
   "use strict";
 
   function _interopRequireDefault(obj) {
@@ -6,7 +6,6 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "com/laravelui5/core/Lara
   }
   const BaseController = _interopRequireDefault(__BaseController);
   const LaravelUi5 = _interopRequireDefault(__LaravelUi5);
-  const URLHelper = sap_m_library["URLHelper"];
   /**
    * @namespace io.pragmatiqu.auth.controller
    */
@@ -34,8 +33,8 @@ sap.ui.define(["./BaseController", "sap/m/MessageBox", "com/laravelui5/core/Lara
         keepSignedIn: login.getProperty("/keepSignedIn")
       };
       try {
-        const response = await LaravelUi5.call("io.pragmatiqu.auth.actions.login", {}, payload);
-        URLHelper.redirect(response.redirect, false);
+        const response = await LaravelUi5.post("/auth/login", payload);
+        await this.getOwnerComponent().dispatchIntent(response.next);
       } catch (error) {
         const err = error;
         MessageBox.error(err.cause.message, {

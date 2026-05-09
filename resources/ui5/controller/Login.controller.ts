@@ -3,11 +3,16 @@ import Input from "sap/m/Input";
 import MessageBox from "sap/m/MessageBox";
 import LaravelUi5 from "com/laravelui5/core/LaravelUi5";
 import JSONModel from "sap/ui/model/json/JSONModel";
-import {URLHelper} from "sap/m/library";
+
+interface SerializedIntent {
+	kind: string;
+	version: string;
+	payload: Record<string, unknown>;
+}
 
 interface LoginResponse {
 	message: string;
-	redirect: string;
+	next: SerializedIntent;
 }
 
 interface ActionError {
@@ -43,12 +48,11 @@ export default class Login extends BaseController {
 			keepSignedIn: login.getProperty("/keepSignedIn"),
 		};
 		try {
-			const response = await LaravelUi5.call<Record<string, unknown>, LoginResponse>(
-				"io.pragmatiqu.auth.actions.login",
-				{},
+			const response = await LaravelUi5.post(
+				"/auth/login",
 				payload
-			);
-			URLHelper.redirect(response.redirect, false);
+			) as LoginResponse;
+			await this.getOwnerComponent().dispatchIntent(response.next);
 		}
 		catch (error) {
 			const err = error as ActionError;

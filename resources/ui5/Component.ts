@@ -3,6 +3,14 @@ import models from "./model/models";
 import Device from "sap/ui/Device";
 import LaravelUi5 from "com/laravelui5/core/LaravelUi5";
 import JSONModel from "sap/ui/model/json/JSONModel";
+import {URLHelper} from "sap/m/library";
+import {INTENT_CATALOG} from "./model/IntentCatalog";
+
+interface SerializedIntent {
+	kind: string;
+	version: string;
+	payload: Record<string, unknown>;
+}
 
 /**
  * @namespace io.pragmatiqu.auth
@@ -28,11 +36,37 @@ export default class Component extends UIComponent {
 			token: null,
 			keepSignedIn: false,
 		}), "login");
+		this.setModel(new JSONModel({}), "intent");
 		LaravelUi5.init(this).then(() => {
 			this.getRouter().initialize();
 		}).catch((error: unknown) => {
 			console.error(error);
 		})
+	}
+
+	/**
+	 * Dispatches a serialized intent returned by the backend dispenser.
+	 *
+	 * Terminal intents (redirect) navigate the browser. Interactive intents
+	 * publish their payload to the "intent" model and route to their view.
+	 * Unknown kinds throw — the catalog is closed; an unknown kind here
+	 * means the backend version is ahead of the frontend version, which
+	 * is a versioning bug to land at dev/CI time, not in production.
+	 */
+	public dispatchIntent(intent: SerializedIntent): void {
+		const binding = INTENT_CATALOG[intent.kind];
+		if (!binding) {
+			console.error(`[ui5-auth] unknown intent kind: ${intent.kind}`);
+			throw new Error(`unknown intent kind: ${intent.kind}`);
+		}
+
+		if (binding.terminal && intent.kind === "redirect") {
+			URLHelper.redirect((intent.payload as { target: string }).target, false);
+			return;
+		}
+
+		(this.getModel("intent") as JSONModel).setData(intent);
+		this.getRouter().navTo(binding.view);
 	}
 
 	/**

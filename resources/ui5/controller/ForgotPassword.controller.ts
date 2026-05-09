@@ -3,10 +3,6 @@ import Input from "sap/m/Input";
 import LaravelUi5 from "com/laravelui5/core/LaravelUi5";
 import JSONModel from "sap/ui/model/json/JSONModel";
 
-interface ForgotPasswordResponse {
-	message: string;
-}
-
 interface ActionError extends Error {
 	status?: number;
 	cause?: {
@@ -47,9 +43,8 @@ export default class ForgotPassword extends BaseController {
 
 		state.setProperty("/submitting", true);
 		try {
-			await LaravelUi5.call<Record<string, unknown>, ForgotPasswordResponse>(
-				"io.pragmatiqu.auth.actions.forgot-password",
-				{},
+			await LaravelUi5.post(
+				"/auth/forgot-password",
 				{ email: login.getProperty("/email") }
 			);
 			this.setStrip(state, "Success", bundle.getText("forgotPassword.success") ?? "");

@@ -88,6 +88,11 @@
 					"pattern": "set-password/{token}/{email}",
 					"name": "SetPassword",
 					"target": "SetPassword"
+				},
+				{
+					"pattern": "org-setup",
+					"name": "OrgSetup",
+					"target": "OrgSetup"
 				}
 			],
 			"targets": {
@@ -102,6 +107,10 @@
 				"SetPassword": {
 					"id": "set",
 					"name": "SetPassword"
+				},
+				"OrgSetup": {
+					"id": "orgSetup",
+					"name": "OrgSetup"
 				}
 			}
 		},
