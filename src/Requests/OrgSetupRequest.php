@@ -18,6 +18,7 @@ class OrgSetupRequest extends FormRequest
             'org_name'          => ['required', 'string', 'max:255'],
             'company_size'      => ['required', 'string', 'in:solo,small,growing,mid_market,enterprise'],
             'function'          => ['required', 'string', 'in:developer,tech_lead,architect,executive,other'],
+            'billing_email'     => ['nullable', 'email', 'max:255'],
             'marketing_consent' => ['boolean'],
         ];
     }

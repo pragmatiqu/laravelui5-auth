@@ -19,6 +19,7 @@ sap.ui.define(["./BaseController", "com/laravelui5/core/LaravelUi5", "sap/ui/mod
         org_name: "",
         company_size: "",
         function: "",
+        billing_email: "",
         marketing_consent: false,
         submitting: false,
         result: {
@@ -72,6 +73,7 @@ sap.ui.define(["./BaseController", "com/laravelui5/core/LaravelUi5", "sap/ui/mod
         org_name: state.getProperty("/org_name"),
         company_size: state.getProperty("/company_size"),
         function: state.getProperty("/function"),
+        billing_email: state.getProperty("/billing_email"),
         marketing_consent: state.getProperty("/marketing_consent")
       };
       state.setProperty("/submitting", true);

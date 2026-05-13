@@ -76,6 +76,18 @@
 						<core:Item key="other"     text="{i18n>orgSetup.function.other}"/>
 					</Select>
 
+					<Label design="Bold" text="{i18n>orgSetup.billingEmail.label}" class="sapUiNoMargin"/>
+					<Input
+						value="{orgSetup>/billing_email}"
+						valueLiveUpdate="true"
+						type="Email"
+						placeholder="{i18n>orgSetup.billingEmail.placeholder}"
+					/>
+					<Label
+						text="{i18n>orgSetup.billingEmail.hint}"
+						class="sapUiTinyMarginBottom"
+					/>
+
 					<CheckBox
 						selected="{orgSetup>/marketing_consent}"
 						text="{i18n>orgSetup.marketingConsent}"

@@ -43,6 +43,7 @@ export default class OrgSetup extends BaseController {
 			org_name: "",
 			company_size: "",
 			function: "",
+			billing_email: "",
 			marketing_consent: false,
 			submitting: false,
 			result: { visible: false, type: "None", text: "" } as ResultState,
@@ -96,6 +97,7 @@ export default class OrgSetup extends BaseController {
 			org_name: state.getProperty("/org_name"),
 			company_size: state.getProperty("/company_size"),
 			function: state.getProperty("/function"),
+			billing_email: state.getProperty("/billing_email"),
 			marketing_consent: state.getProperty("/marketing_consent"),
 		};
 
