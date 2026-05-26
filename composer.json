@@ -4,6 +4,11 @@
   "type": "library",
   "license": "MIT",
   "keywords": ["laravel", "laravelui5", "ui5", "authentication", "auth"],
+  "homepage": "https://github.com/pragmatiqu/laravelui5-auth",
+  "support": {
+    "issues": "https://github.com/pragmatiqu/laravelui5-auth/issues",
+    "source": "https://github.com/pragmatiqu/laravelui5-auth"
+  },
   "authors": [
     {
       "name": "Michael Gerzabek",

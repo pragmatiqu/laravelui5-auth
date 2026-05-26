@@ -11,7 +11,8 @@ use LaravelUi5\Auth\Requests\OrgSetupRequest;
  *
  * Auth ships no default — a host that dispenses OrgSetupIntent without
  * binding a handler will fail loud at request time. That's the desired
- * behavior; the closed catalog (see specs/ui5-auth-intents.md § 4) puts
+ * behavior; the closed catalog (see the ui5-auth-intents spec in the
+ * workspace docs repo, docs/meta/specs/ui5-auth-intents.md § 4) puts
  * the host on the hook for real-state coordination.
  */
 interface OrgSetupHandlerInterface
