@@ -9,6 +9,29 @@ Entries for `0.1.0`–`0.1.5` predate this file; they were reconstructed from th
 monorepo's git history (tags `auth/v0.1.0`–`auth/v0.1.5`) and summarize the source/i18n
 changes per release rather than every commit.
 
+## [0.1.7] - 2026-05-26
+
+Requires `laravelui5/core` **0.9.21+** — the release that adds
+`Ui5InfrastructureContributorInterface` and the `laravel.ui5/infra` manifest node.
+
+### Added
+
+- **The logout route is published as a cross-cutting infrastructure fact.** `AuthModule` now
+  implements Core's `Ui5InfrastructureContributorInterface` (infrastructure key `auth`) and
+  contributes `laravel.ui5.infra.auth.logout`. Unlike a per-app `routes` entry — which appears
+  only in the auth app's own manifest — this node is injected into **every** module's manifest,
+  so a consuming shell (e.g. a portal ShellBar) reads the platform logout URL the same way from
+  any app, without each module re-declaring it. The contribution is static and user-invariant,
+  per Core's `infra` contract.
+
+### Changed (breaking — manifest contract)
+
+- **Logout URL moved from `laravel.ui5.routes.logout` to `laravel.ui5.infra.auth.logout`.**
+  `AuthManifest` no longer publishes `logout` under its `routes` fragment. Consumers reading
+  `routes.logout` (e.g. a ShellBar logout control) must switch to `infra.auth.logout`. The
+  remaining `routes` entries (`logo`/`terms`/`privacy`/`cookies`) are unchanged — those are
+  genuinely app-specific and stay on the per-app `routes` fragment.
+
 ## [0.1.6] - 2026-05-26
 
 ### Fixed

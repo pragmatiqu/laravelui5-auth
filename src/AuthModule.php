@@ -3,10 +3,12 @@
 namespace LaravelUi5\Auth;
 
 use LaravelUi5\Core\Ui5\AbstractUi5Module;
+use LaravelUi5\Core\Ui5\Capabilities\Ui5InfrastructureContributorInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5AppInterface;
 use LaravelUi5\Core\Ui5\Contracts\Ui5Infrastructure;
+use LaravelUi5\Core\Ui5\Contracts\Ui5RegistryInterface;
 
-class AuthModule extends AbstractUi5Module implements Ui5Infrastructure
+class AuthModule extends AbstractUi5Module implements Ui5Infrastructure, Ui5InfrastructureContributorInterface
 {
     public function getName(): string
     {
@@ -61,5 +63,17 @@ class AuthModule extends AbstractUi5Module implements Ui5Infrastructure
     public function getDialogs(): array
     {
         return [];
+    }
+
+    public function getInfrastructureKey(): string
+    {
+        return 'auth';
+    }
+
+    public function contribute(Ui5RegistryInterface $registry): array
+    {
+        return [
+            'logout' => route('logout'),
+        ];
     }
 }

@@ -22,7 +22,6 @@ class AuthManifest extends AbstractManifest
         return [
             LaravelUi5ManifestKeys::ROUTES => [
                 'logo' => $asset,
-                'logout' => route('logout'),
                 'terms' => Route::has('terms') ? route('terms') : null,
                 'privacy' => Route::has('privacy') ? route('privacy') : null,
                 'cookies' => Route::has('cookies') ? route('cookies') : null,
