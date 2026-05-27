@@ -10,11 +10,6 @@ use LaravelUi5\Core\Ui5\Contracts\Ui5RegistryInterface;
 
 class AuthModule extends AbstractUi5Module implements Ui5Infrastructure, Ui5InfrastructureContributorInterface
 {
-    public function getName(): string
-    {
-        return 'io.pragmatiqu.auth';
-    }
-
     public function requiresAuth(): bool
     {
         return false;

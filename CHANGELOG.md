@@ -9,6 +9,30 @@ Entries for `0.1.0`–`0.1.5` predate this file; they were reconstructed from th
 monorepo's git history (tags `auth/v0.1.0`–`auth/v0.1.5`) and summarize the source/i18n
 changes per release rather than every commit.
 
+## [0.1.8] - 2026-05-27
+
+Requires `laravelui5/core` **0.9.28+** — the release that single-sources the module
+namespace (`Ui5ModuleInterface::getName()` → `getNamespace()`), moves the assets
+trait to `Ui5\Concerns`, and relocates the UI5 control enums. This release adapts
+Auth to those breaking changes. **No change to Auth's own contract** — the
+`infra.auth.logout` node (0.1.7), the manifest, the routes, and the app's `@1.0.0`
+artifact-version coordinate are all unchanged.
+
+### Changed
+
+- **`AuthApp` adopts Core's const-backed identity.** The four identity getters are
+  replaced by `NAMESPACE` / `VERSION` / `TITLE` / `DESCRIPTION` class constants;
+  the getters are inherited from Core's `HasArtifactIdentity` (Core 0.9.26). The
+  redundant `HasAssetsTrait` use and the `getType()` override are dropped — the
+  base `AbstractUi5App` now supplies `HasAssets` (the trait moved to
+  `LaravelUi5\Core\Ui5\Concerns\HasAssets` in 0.9.28) and the `Application` type.
+  The app title is now `Login` (was the namespace string); the `@1.0.0` version is
+  unchanged.
+- **`AuthModule` no longer declares its namespace.** `getName()` is removed; the
+  module's namespace now derives from its root artifact (`AuthApp::NAMESPACE`)
+  via Core's single-source model (0.9.28), so the module and app namespaces can
+  never drift.
+
 ## [0.1.7] - 2026-05-26
 
 Requires `laravelui5/core` **0.9.21+** — the release that adds

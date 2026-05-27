@@ -19,7 +19,7 @@
   ],
   "require": {
     "php": ">=8.2",
-    "laravelui5/core": "^0.9.21"
+    "laravelui5/core": "^0.9.28"
   },
   "autoload": {
     "psr-4": {
