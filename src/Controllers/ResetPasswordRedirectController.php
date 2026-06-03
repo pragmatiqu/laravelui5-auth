@@ -23,10 +23,8 @@ class ResetPasswordRedirectController
             return redirect()->route('login');
         }
 
-        $base = $registry->resolve('io.pragmatiqu.auth');
+        $segment = 'set-password/' . urlencode($token) . '/' . urlencode($email);
 
-        $url = $base . '/index.html#/set-password/' . urlencode($token) . '/' . urlencode($email);
-
-        return redirect($url);
+        return redirect($registry->resolveIndexUrl('io.pragmatiqu.auth', $segment));
     }
 }

@@ -15,7 +15,7 @@ class LoginRedirectController
      */
     public function __invoke(Ui5RegistryInterface $registry): RedirectResponse
     {
-        $url = $registry->resolve('io.pragmatiqu.auth') . '/index.html#/';
+        $url = $registry->resolveIndexUrl('io.pragmatiqu.auth', '/');
 
         return redirect($url);
     }
