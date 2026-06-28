@@ -8,7 +8,7 @@ It ships a self-contained UI5 login mini-app (login, logout, forgot/reset passwo
 
 - PHP `>= 8.2`
 - `laravelui5/core: ^0.9` (which determines the supported Laravel version)
-- A consuming app with Laravel's stock auth tables (`users`, `password_reset_tokens`) and a named `dashboard` route (the default post-login redirect target — see [Post-login redirects](#post-login-redirects)).
+- A consuming app with Laravel's stock auth tables (`users`, `password_reset_tokens`) and the named host routes the package redirects to — at minimum `home` and `dashboard` (see [What the host must provide](#what-the-host-must-provide)).
 
 ## Installation
 
@@ -33,6 +33,34 @@ Routes (all under the `web` middleware group):
 | POST | `/auth/intents/org-setup` | `auth.intents.org_setup` | Satisfies the OrgSetup intent (auth only) |
 
 Login is throttled (5 attempts → `Lockout`), the session is regenerated on success, and forgot-password responses are identical whether or not the email exists.
+
+## What the host must provide
+
+The package ships the routes above, but it **redirects to named routes it does not define** — your app must provide them. Two are effectively required:
+
+| Name | Used by | Required? | If missing |
+|:---|:---|:---|:---|
+| `home` | `LogoutController` — every logout ends with `redirect()->route('home')` | **Yes** | logout throws `RouteNotFoundException` (HTTP 500) |
+| `dashboard` | `DefaultIntentDispenser` — the default post-login landing | **Yes**, unless you bind your own `IntentDispenserInterface` that never falls back to it (see [Post-login redirects](#post-login-redirects)) | login throws `RouteNotFoundException` right after credentials validate |
+
+Three further routes are **optional** — the login UI renders a footer link for each only when the route exists (each is guarded by `Route::has()`), so leaving them undefined is safe:
+
+| Name | Footer link |
+|:---|:---|
+| `terms` | Terms of service |
+| `privacy` | Privacy policy |
+| `cookies` | Cookie policy |
+
+Minimal host wiring:
+
+```php
+// routes/web.php
+Route::get('/', HomeController::class)->name('home');   // public; logout lands here
+
+Route::get('/dashboard', /* your post-login landing */)
+    ->middleware('auth')                                // guests bounce to /login
+    ->name('dashboard');
+```
 
 ## Post-login redirects
 
