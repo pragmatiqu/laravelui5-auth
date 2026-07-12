@@ -9,6 +9,28 @@ Entries for `0.1.0`–`0.1.5` predate this file; they were reconstructed from th
 monorepo's git history (tags `auth/v0.1.0`–`auth/v0.1.5`) and summarize the source/i18n
 changes per release rather than every commit.
 
+## [0.2.1] - 2026-07-12
+
+A packaging fix. `0.2.0` shipped **without its compiled frontend** — the runtime `manifest.json`
+and most of the `resources/ui5/` bundle were dropped while slimming the package to its runtime
+essentials, leaving a UI5 app with no descriptor. Any consumer that loads the Auth app (the
+`laravel.ui5` manifest injection, the SDK's ability extraction) failed with *"Manifest not
+found."* **No code, contract, route, or namespace change** — this release only restores the
+shipped assets. Skip `0.2.0`; adopt `0.2.1`.
+
+### Fixed
+
+- **Restore the shipped frontend, as the runtime set.** `ui5/Auth/resources/ui5/` ships
+  `manifest.json`, `Component-preload.js` (+ source map), and the `i18n/*.properties` bundles.
+  The sources (controllers, views, `Component.js`, `*-dbg.*`, `*.map`) are intentionally **not**
+  shipped — they are concatenated into the preload and never fetched in production (Core's
+  `IndexController` boots the app with preload enabled); `index.html` is generated server-side.
+  This is leaner than the `0.1.x` line, which over-shipped the sources.
+- **Guardrail against recurrence.** Publishing is now deterministic: `npm run publish:host` (in
+  the `ui5-auth` source repo) copies exactly the essential set and **aborts if `manifest.json`
+  or the preload is missing**, replacing the error-prone "copy the build, then delete the
+  sources" step that dropped the manifest.
+
 ## [0.2.0] - 2026-07-12
 
 Requires `laravelui5/core` **2.0.0** — the class-string declaration major. Two breaking
