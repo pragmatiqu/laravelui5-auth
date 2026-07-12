@@ -9,6 +9,59 @@ Entries for `0.1.0`–`0.1.5` predate this file; they were reconstructed from th
 monorepo's git history (tags `auth/v0.1.0`–`auth/v0.1.5`) and summarize the source/i18n
 changes per release rather than every commit.
 
+## [0.2.0] - 2026-07-12
+
+Requires `laravelui5/core` **2.0.0** — the class-string declaration major. Two breaking
+changes ride this release: Auth adopts Core 2.0's class-string artifact contract, and the
+app's namespace is renamed for brand consistency. The `/login`, `/logout`, and
+`/password/reset/{token}` **routes are unchanged** — only the UI5 app-asset URLs move — and
+the `@1.0.0` artifact-version coordinate is unchanged.
+
+### Changed
+
+- **Requires `laravelui5/core` `^2.0`** (was `^1.0`). `AuthApp::getLaravelUiManifest()` now
+  returns a **class-string** (`return AuthManifest::class;`, return type `: string`) per Core
+  2.0's declaration contract — the runtime owns resolution (`app(...)`). This is Auth's whole
+  surface under the Core 2.0 break: the module registers only `AuthApp` (every other artifact
+  list is empty), so nothing else was touched.
+- **App namespace `io.pragmatiqu.auth` → `com.laravelui5.auth`.** Brings the app identity in
+  line with the `laravelui5/*` package / `com.laravelui5.*` namespace convention (Core is
+  `com.laravelui5.core`); the vendor-flavoured `io.pragmatiqu.*` was the outlier. The compiled
+  frontend (`manifest.json` `sap.app.id`, every module path, the i18n bundle name) and the PHP
+  side (`AuthApp::NAMESPACE`, both redirect controllers) move together. The app's UI5 assets
+  now serve at `/ui5/app/com/laravelui5/auth@1.0.0/…`; the old `/ui5/app/io/pragmatiqu/auth@…`
+  URLs 404.
+- **`AuthApp::DESCRIPTION`** is now a real sentence ("Email and password sign-in for
+  LaravelUi5 apps, with self-service password reset.") instead of the placeholder namespace
+  string. `TITLE` remains `Login`.
+
+### Migration
+
+- Bump `laravelui5/auth` to `^0.2` **and** `laravelui5/core` to `^2.0` — the two are coupled.
+  `^0.1` will not resolve `0.2.0` (by design: the break is opt-in, so a `composer update`
+  won't pull it silently).
+- If the consuming app uses the SDK's DB-backed registry, run `php artisan ui5:sync` so the
+  `sdk_artifacts` row picks up the new namespace. Auth declares no `#[Access]` abilities, so
+  no ability grants are affected.
+- No route, controller, or request changes — `/login`, `/logout`, `/password/reset/{token}`
+  are stable.
+
+## [0.1.9] - 2026-06-03
+
+Requires `laravelui5/core` **1.0.0** — Auth adopts the Core 1.0 line the day the artifact
+surface froze (the `0.9.x` "SemVer credit spent" convention ended at 1.0.0). **No change to
+Auth's own contract** — the manifest, routes, and the app's `@1.0.0` artifact-version
+coordinate are all unchanged.
+
+### Changed
+
+- **Requires `laravelui5/core` `^1.0`** (was `^0.9.28`).
+- **The redirect controllers adopt Core's `resolveIndexUrl()` helper.** `LoginRedirectController`
+  and `ResetPasswordRedirectController` replace the hand-built
+  `$registry->resolve(…) . '/index.html#/…'` string with
+  `$registry->resolveIndexUrl('io.pragmatiqu.auth', $segment)` (Core 1.0), centralizing the
+  index-URL + hash-fragment shape. Same destinations, no behavioural change.
+
 ## [0.1.8] - 2026-05-27
 
 Requires `laravelui5/core` **0.9.28+** — the release that single-sources the module

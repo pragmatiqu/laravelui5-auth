@@ -25,6 +25,6 @@ class ResetPasswordRedirectController
 
         $segment = 'set-password/' . urlencode($token) . '/' . urlencode($email);
 
-        return redirect($registry->resolveIndexUrl('io.pragmatiqu.auth', $segment));
+        return redirect($registry->resolveIndexUrl('com.laravelui5.auth', $segment));
     }
 }
