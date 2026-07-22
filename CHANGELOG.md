@@ -9,6 +9,26 @@ Entries for `0.1.0`–`0.1.5` predate this file; they were reconstructed from th
 monorepo's git history (tags `auth/v0.1.0`–`auth/v0.1.5`) and summarize the source/i18n
 changes per release rather than every commit.
 
+## [0.2.2] - 2026-07-22
+
+Completes the session-expiry **resume** path. When an expired session bounces the client to
+`/login?redirect=<path>` (the `ui5-core-lib` `SessionGuard` re-auth path — a client-initiated
+`window.location` bounce, so Laravel never set `url.intended` the way `redirect()->guest()`
+would), `LoginRedirectController` now stashes that target as Laravel's `url.intended`. The existing
+`DefaultIntentDispenser` (`url.intended` → terminal `RedirectIntent`) then resumes there after
+login — the same seat a browser-nav bounce already used. **No change to the login submit, the
+dispenser, the intent catalog, or the UI5 client.** Requires the paired `SessionGuard` that sends a
+navigable `pathname + search + hash` target (`@laravelui5/core` 6.0.3, bundled into Core) — a bare
+route hash would resume wrong; ship that bundle with or before this release.
+
+### Fixed
+
+- **`LoginRedirectController` honours a same-origin `?redirect=` target**, stashing it as
+  `url.intended`. Open-redirect guarded: only a rooted path (`/…`) with no host and no
+  protocol-relative (`//`, `/\`) or backslash form is accepted — a query-supplied
+  `https://evil.example` or `//evil.example` is ignored, never followed. Sealed by
+  `tests/Feature/Auth/LoginRedirectTest.php` (host).
+
 ## [0.2.1] - 2026-07-12
 
 A packaging fix. `0.2.0` shipped **without its compiled frontend** — the runtime `manifest.json`
