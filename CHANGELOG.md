@@ -9,6 +9,20 @@ Entries for `0.1.0`–`0.1.5` predate this file; they were reconstructed from th
 monorepo's git history (tags `auth/v0.1.0`–`auth/v0.1.5`) and summarize the source/i18n
 changes per release rather than every commit.
 
+## [0.2.3] - 2026-08-27
+
+Constraint-only release. `composer.json` declared `"php": ">=8.2"` — the last unbounded `>=`
+constraint left in the stack, and two minors below the decided floor. It is now `^8.4`, matching
+`laravelui5/core` and `laravelui5/odata`; since Auth requires Core, which requires odata's `^8.4`,
+no Auth installation has ever resolved below 8.4 either. Part of the coordinated floor alignment
+described in `meta/specs/php-compatibility.md`.
+
+No source change, no behaviour change.
+
+### Changed
+
+- `composer.json` requires `php ^8.4` (was `>=8.2`).
+
 ## [0.2.2] - 2026-07-22
 
 Completes the session-expiry **resume** path. When an expired session bounces the client to

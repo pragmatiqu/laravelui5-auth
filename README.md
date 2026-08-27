@@ -6,8 +6,8 @@ It ships a self-contained UI5 login mini-app (login, logout, forgot/reset passwo
 
 ## Requirements
 
-- PHP `>= 8.2`
-- `laravelui5/core: ^0.9` (which determines the supported Laravel version)
+- PHP `>= 8.3` (raised by `laravelui5/core`; this package itself declares `>= 8.2`)
+- `laravelui5/core: ^2.0` (which determines the supported Laravel version)
 - A consuming app with Laravel's stock auth tables (`users`, `password_reset_tokens`) and the named host routes the package redirects to — at minimum `home` and `dashboard` (see [What the host must provide](#what-the-host-must-provide)).
 
 ## Installation
