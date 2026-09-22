@@ -9,6 +9,39 @@ Entries for `0.1.0`–`0.1.5` predate this file; they were reconstructed from th
 monorepo's git history (tags `auth/v0.1.0`–`auth/v0.1.5`) and summarize the source/i18n
 changes per release rather than every commit.
 
+## [0.2.4] - 2026-09-22
+
+The sign-in screens finally show the consuming application's logo. `AuthManifest` has published
+`routes.logo` since `0.1.x` and `LaravelUi5.init` has turned it into the `routes` model all along —
+but **no view ever bound it**, so every screen rendered a bare card and the documented branding
+seat was a promise no code kept. A new `BrandLogo` fragment sits above the card on all four screens
+(login, forgot password, set password, org setup).
+
+The fallback goes the other way: the package **no longer ships a logo of its own**. The bundled
+`resources/assets/ci/logo-full.svg` was a byte-for-byte copy of the maintainer's brand, so the
+fallback path would have put a foreign logo on a customer's sign-in screen — and it could not even
+do that, since no `publishes()` rule ever put the file under `public/vendor/`, leaving the fallback
+URL a 404. Both are gone. With no host logo, `routes.logo` is `null` and the Image hides itself.
+
+**What a consuming application does:** put an SVG at `public/assets/ci/logo-full.svg`. Nothing else
+— no config key, no publish step. Hosts without that file see the screens unchanged.
+
+Frontend bundle `com.laravelui5.auth` 0.2.2. The `@1.0.0` artifact-version coordinate is unchanged.
+
+### Fixed
+
+- **The host logo is rendered.** New `view/BrandLogo.fragment.xml`, bound to `{routes>/logo}` and
+  included above the card in `Login`, `ForgotPassword`, `SetPassword` and `OrgSetup`. It carries
+  `visible="{= !!${routes>/logo} }"`, so a host without a logo gets the previous layout rather than
+  a broken image, and `decorative="true"` — the screen's own heading already names the page.
+
+### Removed
+
+- **The package-shipped fallback logo.** `resources/assets/ci/logo-full.svg` is deleted and
+  `AuthManifest` no longer points at `vendor/laravelui5/auth/logo-full.svg`. `routes.logo` is the
+  host's asset URL or `null`. Sealed by `tests/Feature/Auth/AuthManifestTest.php` (host), which
+  asserts both branches against the served manifest.
+
 ## [0.2.3] - 2026-08-27
 
 Constraint-only release. `composer.json` declared `"php": ">=8.2"` — the last unbounded `>=`
