@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use LaravelUi5\Core\Ui5\Contracts\Ui5RegistryInterface;
 
-class LoginRedirectController
+final class LoginRedirectController
 {
     /**
      * Redirects to the Auth app.

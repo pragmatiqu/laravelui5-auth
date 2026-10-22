@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use LaravelUi5\Core\Ui5\Contracts\Ui5RegistryInterface;
 
-class ResetPasswordRedirectController
+final class ResetPasswordRedirectController
 {
     public function __invoke(Request $request, Ui5RegistryInterface $registry, string $token): RedirectResponse
     {

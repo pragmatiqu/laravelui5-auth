@@ -7,7 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Entries for `0.1.0`–`0.1.5` predate this file; they were reconstructed from the host
 monorepo's git history (tags `auth/v0.1.0`–`auth/v0.1.5`) and summarize the source/i18n
-changes per release rather than every commit.
+changes per release rather than every commit. `0.2.5` and `0.2.6` were tagged without an entry and
+reconstructed the same way on 2026-10-22.
+
+## [0.2.7] - 2026-10-22
+
+The package stops leaning on the host in places it does not say so. `LogoutController` extended
+`App\Http\Controllers\Controller`, a class of the host's skeleton, so logout died with *class not
+found* in a host that had removed it. And it signed out through `Auth::guard('web')` while
+`LoginRequest` signs in through `Auth::attempt()` on the **default** guard: in a host whose default
+guard is not `web`, logout left the session signed in. Both are fixed.
+
+The two named routes the package redirects to, `home` after logout and `dashboard` as the default
+post-login landing, stay host-provided. That is the documented contract (`docs/core/auth.md`), not a
+leak.
+
+No frontend change. The `@1.0.0` artifact-version coordinate is unchanged.
+
+### Fixed
+
+- **`LogoutController` no longer extends a host class.** It stands alone and is `final`, like the
+  other controllers; it used nothing of `Controller`.
+- **Logout signs out through the default guard** (`Auth::logout()`), the same guard login signs in
+  through and the route's `auth` middleware checks. Hosts on `web`, the Laravel default, see no change.
+  Sealed by `tests/Feature/Auth/LogoutTest.php` (host), which runs a host with a second default guard.
+
+### Changed
+
+- **The flow classes are `final`:** `LoginRedirectController`, `ResetPasswordRedirectController`,
+  `LoginRequest`, `ForgotPasswordRequest`, `ResetPasswordRequest`. None of them is an extension point;
+  what a host customizes sits behind `IntentDispenserInterface` and `OrgSetupHandlerInterface`. A host
+  that subclassed one of them breaks. `OrgSetupRequest` stays open, since it is part of
+  `OrgSetupHandlerInterface`'s signature and a host may extend its rules.
+- `IntentResult`'s three `STATUS_*` constants are typed (`string`).
+- `OrgSetupHandlerInterface`'s docblock points at the spec's current home,
+  `meta/specs/ui5/auth-intents.md`.
+
+## [0.2.6] - 2026-10-08
+
+Constraint-only release: Auth accepts Core 3. `composer.json` requires `laravelui5/core: ^2.0||^3.0`
+(was `^2.0`), so a host can move to Core 3 without leaving Auth behind. No source change, no behaviour
+change.
+
+### Changed
+
+- `composer.json` requires `laravelui5/core ^2.0||^3.0` (was `^2.0`).
+
+## [0.2.5] - 2026-10-08
+
+No change to the package. The release commit touched only the host (`auth-host/composer.json` to
+`laravelui5/core: ^2.0 || ^3.0`, its lock file, and a ROADMAP entry); nothing under `ui5/Auth/` moved, so
+the split behind this tag carries the same content as `0.2.4`. The package's own Core constraint followed
+three minutes later in `0.2.6`.
 
 ## [0.2.4] - 2026-09-22
 

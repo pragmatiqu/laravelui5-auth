@@ -4,9 +4,9 @@ namespace LaravelUi5\Auth\Intents\Results;
 
 final readonly class IntentResult
 {
-    public const STATUS_SATISFIED        = 'satisfied';
-    public const STATUS_NEEDS_MORE_INPUT = 'needs_more_input';
-    public const STATUS_ERROR            = 'error';
+    public const string STATUS_SATISFIED        = 'satisfied';
+    public const string STATUS_NEEDS_MORE_INPUT = 'needs_more_input';
+    public const string STATUS_ERROR            = 'error';
 
     public function __construct(
         public string $status,
