@@ -48,7 +48,7 @@ Constraint-only release. `composer.json` declared `"php": ">=8.2"` — the last 
 constraint left in the stack, and two minors below the decided floor. It is now `^8.4`, matching
 `laravelui5/core` and `laravelui5/odata`; since Auth requires Core, which requires odata's `^8.4`,
 no Auth installation has ever resolved below 8.4 either. Part of the coordinated floor alignment
-described in `meta/specs/php-compatibility.md`.
+described in `meta/specs/workspace/php-compatibility.md`.
 
 No source change, no behaviour change.
 
