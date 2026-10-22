@@ -10,11 +10,9 @@ use LaravelUi5\Core\Ui5\Contracts\Ui5RegistryInterface;
 class AuthModule extends AbstractUi5Module implements Ui5Infrastructure, Ui5InfrastructureContributorInterface
 {
     /**
-     * The module's artifacts, root included (`core/module-artifacts-v1.0` D10).
+     * The module's root (`core/module-artifacts-v1.0` D16); Auth declares no other artifact.
      */
-    public const array ARTIFACTS = [
-        AuthApp::class,
-    ];
+    public const string ARTIFACT_ROOT = AuthApp::class;
 
     public function requiresAuth(): bool
     {

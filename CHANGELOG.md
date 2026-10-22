@@ -21,7 +21,7 @@ No frontend change. The `@1.0.0` artifact-version coordinate is unchanged.
 ### Changed
 
 - **Requires `laravelui5/core ^4.0`** (was `^2.0||^3.0`).
-- **`AuthModule` declares `ARTIFACTS = [AuthApp::class]`** instead of `getApp()` and the empty `getCards()`,
+- **`AuthModule` declares `ARTIFACT_ROOT = AuthApp::class`** instead of `getApp()` and the empty `getCards()`,
   `getKpis()`, `getTiles()`, `getActions()`, `getResources()`, `getDashboards()`, `getReports()`, `getDialogs()`.
 
 ## [0.2.7] - 2026-10-22
