@@ -10,6 +10,18 @@ monorepo's git history (tags `auth/v0.1.0`–`auth/v0.1.5`) and summarize the so
 changes per release rather than every commit. `0.2.5` and `0.2.6` were tagged without an entry and
 reconstructed the same way on 2026-10-22.
 
+## [0.3.1] - 2026-10-26
+
+Auth runs on **Core 5** as well. Nothing in Auth touches what Core 5 removes or changes — it has no actions, no card
+providers and no help or Weave control — so the constraint only widens. Validated against Core 5 in this host (suite
+green, browser smoke green: sign in, sign out, password reset).
+
+No frontend change. The `@1.0.0` artifact-version coordinate is unchanged.
+
+### Changed
+
+- **Requires `laravelui5/core ^4.0 || ^5.0`** (was `^4.0`).
+
 ## [0.3.0] - 2026-10-22
 
 Auth moves to **Core 4** and leaves Core 2 and 3 behind. Core 4 replaces the module's nine getters with one declared
