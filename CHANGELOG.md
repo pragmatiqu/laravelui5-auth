@@ -10,6 +10,18 @@ monorepo's git history (tags `auth/v0.1.0`–`auth/v0.1.5`) and summarize the so
 changes per release rather than every commit. `0.2.5` and `0.2.6` were tagged without an entry and
 reconstructed the same way on 2026-10-22.
 
+## [0.5.0] - 2026-10-27
+
+Auth moves to **Core 6** and leaves Core 5 behind. Core 6 moves `#[Parameter]` from an action's handler to the action;
+Auth carries no `#[Parameter]` anywhere, so nothing in it moves. Requiring the one major keeps Auth in step with the
+SDK 2.0 it ships beside.
+
+No frontend change. The `@1.0.0` artifact-version coordinate is unchanged.
+
+### Changed
+
+- **Requires `laravelui5/core ^6.0`** (was `^5.0`).
+
 ## [0.4.0] - 2026-10-26
 
 Auth moves to **Core 5** and leaves Core 4 behind. Nothing in Auth touches what Core 5 removes or changes — it has no
